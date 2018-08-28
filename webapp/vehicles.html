@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Port User</title>
+
+    <!-- Bootstrap -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+	.users-nav{
+		
+	}
+	.users-nav a{
+		padding: 10px; 
+		background: #efefef;
+		display: block;
+		color: #000;
+		text-decoration: none;
+	}
+	.users-nav a.active{
+		background: blue;
+		color: #fff;
+		text-decoration: none;
+	}
+</style>
+  </head>
+  <body>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Vehicle</h4>
+      </div>
+      <div class="modal-body">
+         
+		 <form class="form-horizontal">
+			  <div class="form-group">
+				<label for="inputEmail3" class="col-sm-4 control-label">Select Vehicle Type:</label>
+				<div class="col-sm-8">
+				  <select class="form-control">
+					  <option>Train</option>
+					  <option>Truck</option>
+					  <option>Van</option>					  
+					</select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label for="inputPassword3" class="col-sm-4 control-label">Enter Vehicle Details:</label>
+				<div class="col-sm-8">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="">
+				</div>
+			  </div>
+			  
+			    <div class="form-group">
+				<label for="inputPassword3" class="col-sm-4 control-label">Max Containers:</label>
+				<div class="col-sm-8">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="">
+				</div>
+			  </div>
+			  
+			   <div class="form-group">
+				<label for="inputPassword3" class="col-sm-4 control-label">Start Time:</label>
+				<div class="col-sm-4">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="Date">
+				</div>
+				<div class="col-sm-4">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="Time">
+				</div>
+			  </div>
+			  
+			   <div class="form-group">
+				<label for="inputPassword3" class="col-sm-4 control-label">End Time:</label>
+				<div class="col-sm-4">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="Date">
+				</div>
+				<div class="col-sm-4">
+				  <input type="password" class="form-control" id="inputPassword3" placeholder="Time">
+				</div>
+			  </div>
+			<hr/>
+			  <div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button type="submit" class="btn btn-default">Cancel</button>
+				  <button type="submit" class="btn btn-primary">Add</button>
+				</div>
+			  </div>
+			</form>
+		 
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="masin">
+  <div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-sm-2 users-nav" style="background: #f9f9f9; height: 100vh; padding: 0;">
+			<p style="padding: 10px; font-size: 16px; font-weight: bold;">Demo User</p>
+			<a href="#"  class="active">Warehouse Users <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span></a>
+			<a href="port.html">Port users</a><br/>
+		</div>
+		
+		<div class="col-sm-10">
+			
+		  
+			<form class="form-horizontal"  style="background:#f9f9f9; padding: 16px 5px 1px 5px; margin-bottom: 20px; margin-top: 20px">
+			  <div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">Select Warehouse:</label>
+				<div class="col-sm-3">
+				  <select class="form-control">
+					  <option>Warehouse 01</option>
+					  <option>Warehouse 02</option>
+					  <option>Warehouse 03</option>
+					  <option>Warehouse 04</option>
+					</select>
+				</div>
+				
+				<button type="button" class="btn btn-primary">Show Vehicles</button>
+			  </div>
+			  
+			  
+			</form>
+			
+			
+			
+			<table class="table table-condensed" style="border:1px solid #eaeaea"> 
+						<thead> 
+							<tr style="background: #fbfbfb;
+    color: #000;"> 
+								<th>Vehicle</th> 
+								<th>Type</th> 
+								<th>Vehicle Detail</th> 
+								<th>Vehicle Capacity</th>
+															
+							</tr> 
+							</thead> 
+							<tbody style="    background: #fff;
+    color: #000;"> 
+								<tr> 
+									<th>01</th> 
+									<td>Train</td> 
+									<td>No 45281</td> 
+									<td>24 Containers</td> 
+									
+								</tr> 
+<tr> 
+									<th>02</th> 
+									<td>Truck</td> 
+									<td>MH 03 9287</td> 
+									<td>14 Containers</td> 
+									
+								</tr> 
+								<tr> 
+									<th>03</th> 
+									<td>Train</td> 
+									<td>No 3432</td> 
+									<td>04 Containers</td> 
+									
+								</tr> 
+								</tbody> 
+					</table>
+					
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Vehicles</button>
+			
+		</div>
+		</div>
+	</div>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
+  </body>
+</html>

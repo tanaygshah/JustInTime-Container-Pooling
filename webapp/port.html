@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Port User</title>
+
+    <!-- Bootstrap -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+	.users-nav{
+		
+	}
+	.users-nav a{
+		padding: 10px; 
+		background: #efefef;
+		display: block;
+		color: #000;
+		text-decoration: none;
+	}
+	.users-nav a.active{
+		background: blue;
+		color: #fff;
+		text-decoration: none;
+	}
+</style>
+  </head>
+  <body>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Loading Plan</h4>
+      </div>
+      <div id="myModalBody" class="modal-body">
+	  </div>
+</div>
+</div>
+
+<div class="masin">
+  <div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-sm-2 users-nav" style="background: #f9f9f9; height: 100vh;  padding: 0;">
+			<p style="padding: 10px; font-size: 16px; font-weight: bold;">Demo User</p>
+			<a href="warehouse.html">Warehouse Users</a>
+			<a href="#" class="active">Port users <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+</a><br/>
+		</div>
+		
+		<div class="col-sm-10">
+			<h2>PORT: JNPT</h2>
+		  <hr/>
+		  
+			<form class="form-horizontal" style="background:#f9f9f9; padding: 16px 5px 1px 5px; margin-bottom: 20px;">
+			  <div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">Select Date:</label>
+				<div class="col-sm-3">
+				  <select id="dateSelector" class="form-control">
+					  <option>2018-06-02</option>
+					  <option>2018-06-03</option>
+					  <option>2018-06-04</option>
+					  <option>2018-06-05</option>
+					  <option>2018-06-06</option>
+					</select>
+				</div>
+				<a id="showShip" class="btn btn-primary" onclick="showTodayShips()">Show Ships</a>
+			  </div>
+			</form>
+			<div id="shipsData">
+			
+			
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
+	<script>
+		function showTodayShips(){
+			var date = document.getElementById('dateSelector').value
+			console.log("date",date)
+			$.ajax({
+                    url: '/api/todays_arrivals?date=' + date,
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+					success: function(data){
+						//data=JSON.parse(data)
+						var shipsDataStr = ""
+						for (var i=0; i < data['ships'].length; i++){
+							shipsDataStr = shipsDataStr + '<div style="border:1px solid #eee; background: #fff; height: 240px;overflow-y: scroll;"><div style="background: #337ab7; padding: 5px;color: #fff; font-weight: bold;"><div class="row"><div class="col-sm-3" style="padding-top: 6px;font-size: 16px;text-transform: uppercase;">'
+							shipsDataStr = shipsDataStr + data['ships'][i]['name'] + '</div><div class="col-sm-3" style="padding-top: 6px;font-size: 16px;text-transform: uppercase;">'
+							shipsDataStr = shipsDataStr + "Sailing Time : " + data['ships'][i]['sailing_time']
+							shipsDataStr = shipsDataStr + '</div><div class="col-sm-6"><a "id"="loading-plan-btn-' + i +'" class="pull-right btn btn-warning" href="#" data-toggle="modal" data-target="#myModal" onclick="getLoadingPlan(' + i+ ')">View Loading Plan</a></div></div></div>'
+							for (var j=0; j< data['ships'][i]['containers'].length; j++){
+								shipsDataStr = shipsDataStr + '<div style="padding: 10px;"><div style="    background: #efefef;color: #000; font-weight: bold;padding: 7px;">'
+								shipsDataStr = shipsDataStr + "Conatiner " +  data['ships'][i]['containers'][j]['name']
+								shipsDataStr = shipsDataStr + '</div><table class="table table-condensed" style="border:1px solid #eaeaea"> <thead> <tr style="background: #fbfbfb; color: #000;"><th>Source</th> <th>Destinations</th> <th>Mode of Travel</th> <th>Current CFS/ICD</th><th>Next Halt</th></tr></thead><tbody style="    background: #fff; color: #000;"><tr><th>'
+								shipsDataStr = shipsDataStr + data['ships'][i]['containers'][j]['source'] + '</th> <td>' + data['ships'][i]['containers'][j]['destination'] + '</td> <td>' + data['ships'][i]['containers'][j]['mode_of_travel'] + '</td> <td>' + data['ships'][i]['containers'][j]['current_location']
+								shipsDataStr = shipsDataStr + '</td> <td>JNPT</td> </tr>  </tbody> </table></div>'
+							}
+							
+							shipsDataStr = shipsDataStr + '	</div></div></div></div></div></div>'
+						
+						}	
+						$('#shipsData').append(shipsDataStr)
+					}
+				})
+		}
+		
+		function getLoadingPlan(ship_number){
+			console.log("sn", ship_number)
+			$.ajax({
+					url: '/api/ship_loading_plan?ship_number=' + ship_number,
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+					success: function(data){
+						var loadingScheduleString = ""
+						for (var i=0; i < data['scheduled_vehicles'].length; i++){
+							loadingScheduleString = loadingScheduleString + '<table class="table table-striped"> <thead> <tr style="background: #eee"> <th>Time</th><th>Vehicle/th><th>Vehicle Details</th> <th>Containers</th> </tr> </thead> <tbody>'
+							loadingScheduleString = loadingScheduleString + '<tr><th>' + data['scheduled_vehicles'][i]['time'] + '</th> <td>' + data['scheduled_vehicles'][i]['vehicle_type'] + '</td> <td>' + data['scheduled_vehicles'][i]['vehicle_detail'] + '</td> <td>' + data['scheduled_vehicles'][i]['containers'][0]
+							loadingScheduleString = loadingScheduleString + '</td></tr><tr><td>'
+							if (data['scheduled_vehicles'][i]['containers'].length > 1){
+								for (var j=0; j < data['scheduled_vehicles'][i]['containers'].length ; j++){
+									loadingScheduleString = loadingScheduleString + '</td><tr><td></td><td></td><td></td><td>' + data['scheduled_vehicles'][i]['containers'][j] + '</td></tr><td>'
+								}
+							} 
+							loadingScheduleString = loadingScheduleString + '</td> </tr> '
+						}
+						loadingScheduleString = loadingScheduleString + '</tbody> </table></div><div class="modal-footer"><button type="button" class="btn btn-primary">Download</button></div>'
+						$('#myModalBody').append(loadingScheduleString)
+					}			
+				})
+		}
+	</script>
+  </body>
+</html>
