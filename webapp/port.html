@@ -106,7 +106,7 @@
 						for (var i=0; i < data['ships'].length; i++){
 							shipsDataStr = shipsDataStr + '<div style="border:1px solid #eee; background: #fff; height: 240px;overflow-y: scroll;"><div style="background: #337ab7; padding: 5px;color: #fff; font-weight: bold;"><div class="row"><div class="col-sm-3" style="padding-top: 6px;font-size: 16px;text-transform: uppercase;">'
 							shipsDataStr = shipsDataStr + data['ships'][i]['name'] + '</div><div class="col-sm-3" style="padding-top: 6px;font-size: 16px;text-transform: uppercase;">'
-							shipsDataStr = shipsDataStr + "Sailing Time : " + data['ships'][i]['sailing_time']
+							shipsDataStr = shipsDataStr + "Sailing Time : " + timestampToDate(data['ships'][i]['sailing_time'])
 							shipsDataStr = shipsDataStr + '</div><div class="col-sm-6"><a "id"="loading-plan-btn-' + i +'" class="pull-right btn btn-warning" href="#" data-toggle="modal" data-target="#myModal" onclick="getLoadingPlan(' + i+ ')">View Loading Plan</a></div></div></div>'
 							for (var j=0; j< data['ships'][i]['containers'].length; j++){
 								shipsDataStr = shipsDataStr + '<div style="padding: 10px;"><div style="    background: #efefef;color: #000; font-weight: bold;padding: 7px;">'
@@ -135,7 +135,7 @@
 						var loadingScheduleString = ""
 						for (var i=0; i < data['scheduled_vehicles'].length; i++){
 							loadingScheduleString = loadingScheduleString + '<table class="table table-striped"> <thead> <tr style="background: #eee"> <th>Time</th><th>Vehicle/th><th>Vehicle Details</th> <th>Containers</th> </tr> </thead> <tbody>'
-							loadingScheduleString = loadingScheduleString + '<tr><th>' + data['scheduled_vehicles'][i]['time'] + '</th> <td>' + data['scheduled_vehicles'][i]['vehicle_type'] + '</td> <td>' + data['scheduled_vehicles'][i]['vehicle_detail'] + '</td> <td>' + data['scheduled_vehicles'][i]['containers'][0]
+							loadingScheduleString = loadingScheduleString + '<tr><th>' + timestampToDate(data['scheduled_vehicles'][i]['time']) + '</th> <td>' + data['scheduled_vehicles'][i]['vehicle_type'] + '</td> <td>' + data['scheduled_vehicles'][i]['vehicle_detail'] + '</td> <td>' + data['scheduled_vehicles'][i]['containers'][0]
 							loadingScheduleString = loadingScheduleString + '</td></tr><tr><td>'
 							if (data['scheduled_vehicles'][i]['containers'].length > 1){
 								for (var j=0; j < data['scheduled_vehicles'][i]['containers'].length ; j++){
@@ -148,6 +148,10 @@
 						$('#myModalBody').append(loadingScheduleString)
 					}			
 				})
+		}
+
+		function timestampToDate(timestamp){
+			return new Date(timestamp * 1000).toString()
 		}
 	</script>
   </body>
