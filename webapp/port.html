@@ -126,8 +126,9 @@
 		
 		function getLoadingPlan(ship_number){
 			console.log("sn", ship_number)
+			var date = document.getElementById('dateSelector').value
 			$.ajax({
-					url: '/api/ship_loading_plan?ship_number=' + ship_number,
+					url: '/api/ship_loading_plan?ship_number=' + ship_number + "&date=" + date,
                     type: "GET",
                     dataType: "json",
                     async: false,

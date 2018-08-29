@@ -325,8 +325,14 @@ def get_ship_loading_plan():
     global all_available_vehicles
     global all_containers_to_ship
     global all_warehouses
+    print todays_arrivals
     ship_number =  request.args.get('ship_number')
-    loading_plan = todays_arrivals[int(ship_number)].get_basic_loading_plan()
+    date = request.args.get('date')
+    try:
+        loading_plan = todays_arrivals[int(ship_number)].get_basic_loading_plan()
+    except IndexError:
+        todays_arrivals, all_available_vehicles, all_containers_to_ship, all_warehouses = get_data_from_dataset(date)
+        loading_plan = todays_arrivals[int(ship_number)].get_basic_loading_plan()
     return jsonify(loading_plan)
     
 if __name__ == "__main__":
